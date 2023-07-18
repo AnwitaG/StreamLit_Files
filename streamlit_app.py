@@ -69,7 +69,7 @@ df
 # In[8]:
 
 
-from sklearn.model_selection import train_test_split
+
 
 X = df.drop('quality', axis = 1)
 y = df['quality']
@@ -85,20 +85,6 @@ y
 # In[10]:
 
 
-# Train - Test Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
-
-
-# In[11]:
-
-
-X_train.shape
-
-
-# In[12]:
-
-
-X_test.shape
 
 
 # In[13]:
@@ -113,8 +99,8 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 
 
 lda = LinearDiscriminantAnalysis(n_components=1)
-X_train = lda.fit_transform(X_train, y_train)
-X_test = lda.transform(X_test)
+X_train = lda.fit_transform(X, y)
+X_test = lda.transform(X)
 
 
 # In[15]:
@@ -122,15 +108,15 @@ X_test = lda.transform(X_test)
 
 # classify using random forest classifier
 classifier = RandomForestClassifier(max_depth=25, random_state=5)
-classifier.fit(X_train, y_train)
-y_pred = classifier.predict(X_test)
+classifier.fit(X, y)
+y_pred = classifier.predict(X)
 
 
 # In[16]:
 
 
 # print the accuracy and confusion matrix
-print('Accuracy : ' + str(accuracy_score(y_test, y_pred)))
-conf_m = confusion_matrix(y_test, y_pred)
+print('Accuracy : ' + str(accuracy_score(y, y_pred)))
+conf_m = confusion_matrix(y, y_pred)
 print(conf_m)
 
